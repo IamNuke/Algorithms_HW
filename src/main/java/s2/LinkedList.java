@@ -50,6 +50,46 @@ public class LinkedList {
         }
         return currentNode;
     }
+
+    public void swap(int index1, int index2){
+        if (index1 < 0 || index1 >= size || index2 < 0 || index2 >= size){
+            return;
+        }
+        Node node1 = null, node2 = null, currentNode = root;
+        for (int i = 0; currentNode != null; i++) {
+
+            if (node1 == null)
+                if (index1 == i)
+                    node1 = currentNode;
+            if (node2 == null)
+                if (index2 == i)
+                    node2 = currentNode;
+            if (node1 != null && node2!=null)
+                break;
+            currentNode = currentNode.next;
+        }
+
+        int temp = node1.value;
+        node1.value = node2.value;
+        node2.value = temp;
+    }
+
+    public void revert(){
+       if (root != null && root.next != null){
+           revert(root.next, root);
+       }
+    }
+    public void revert(Node currentNode, Node previouseNode){
+
+        if (currentNode.next == null){
+            root = currentNode;
+        }else {
+            revert(currentNode.next, currentNode);
+        }
+        currentNode.next = previouseNode;
+        previouseNode.next = null;
+
+    }
     public void print(){
         Node currentNode = root;
         while (currentNode != null) {
